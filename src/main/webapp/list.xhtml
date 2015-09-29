@@ -12,35 +12,77 @@
                 Application.</p>
         </div>
 
+        <h:form class="form-listing">
+            <h2>WeaponRacks</h2>
+            <h:panelGroup rendered="#{empty weaponRacks}">
+                <em>No registered members.</em>
+            </h:panelGroup>
+            <h:dataTable var="_wearponrack" value="#{weaponRacks}"
+                         rendered="#{not empty weaponRacks}"
+                         styleClass="simpletablestyle">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{_wearponrack.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Capacity</f:facet>
+                    #{_wearponrack.capacity}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{_wearponrack.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">REST URL</f:facet>
+                    <a href="#{request.contextPath}/rest/weaponracks/#{_wearponrack.id}">/rest/weaponracks/#{_wearponrack.id}</a>
+                </h:column>
+                <f:facet name="footer">
+                    REST URL for all weaponracks: <a
+                        href="#{request.contextPath}/rest/weaponracks">/rest/weaponracks</a>
+                </f:facet>
+            </h:dataTable>
+        </h:form>
 
-        <h2>WeaponRacks</h2>
-        <h:panelGroup rendered="#{empty weaponRacks}">
-            <em>No registered members.</em>
-        </h:panelGroup>
-        <h:dataTable var="_wearponrack" value="#{weaponRacks}"
-                     rendered="#{not empty weaponRacks}"
-                     styleClass="simpletablestyle">
-            <h:column>
-                <f:facet name="header">Id</f:facet>
-                #{_wearponrack.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Capacity</f:facet>
-                #{_wearponrack.capacity}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{_wearponrack.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">REST URL</f:facet>
-                <a
-                        href="#{request.contextPath}/rest/weaponracks/#{_wearponrack.id}">/rest/weaponracks/#{_wearponrack.id}</a>
-            </h:column>
-            <f:facet name="footer">
-                REST URL for all weaponracks: <a
-                    href="#{request.contextPath}/rest/weaponracks">/rest/weaponracks</a>
-            </f:facet>
-        </h:dataTable>
+        <h:form class="form-listing">
+            <h2>Weapons</h2>
+            <h:panelGroup rendered="#{empty weapons}">
+                <em>No registered members.</em>
+            </h:panelGroup>
+            <h:dataTable var="_weapon" value="#{weapons}"
+                         rendered="#{not empty weapons}"
+                         styleClass="simpletablestyle">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{_weapon.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Weapon rack ID</f:facet>
+                    #{_weapon.weapon_rack_id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{_weapon.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Caliber</f:facet>
+                    #{_weapon.caliber}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Weight</f:facet>
+                    #{_weapon.weight}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Put time</f:facet>
+                    #{_weapon.put_time}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">REST URL</f:facet>
+                    <a href="#{request.contextPath}/rest/weapons/#{_weapon.id}">/rest/weapons/#{_weapon.id}</a>
+                </h:column>
+                <f:facet name="footer">
+                    REST URL for all weapons: <a href="#{request.contextPath}/rest/weapons">/rest/weapons</a>
+                </f:facet>
+            </h:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>
