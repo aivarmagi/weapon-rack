@@ -24,7 +24,7 @@ body {
 }
 #content {
   float: left;
-  width: 500px;
+  width: 820px;
   margin: 20px;
 }
 #aside {
@@ -116,7 +116,7 @@ input {
 .simpletablestyle {
   background-color:#E6E7E8;
   clear:both;
-  width: 550px;
+  width: 800px;
 }
 
 .simpletablestyle img {
@@ -183,4 +183,7 @@ input {
 .simpletablestyle td a:hover {
   color:#3883ce;
   text-decoration:none; 
+}
+.form-listing {
+    width: 800px;
 }
