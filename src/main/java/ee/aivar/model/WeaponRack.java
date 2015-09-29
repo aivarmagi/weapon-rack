@@ -14,7 +14,6 @@ public class WeaponRack implements Serializable {
 
     @Id
 	@NotNull
-//    @GeneratedValue
     private String id;
 
     @NotNull

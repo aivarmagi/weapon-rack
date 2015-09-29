@@ -1,7 +1,7 @@
 package ee.aivar.controller;
 
-import ee.aivar.model.WeaponRack;
-import ee.aivar.service.WeaponRackRegistration;
+import ee.aivar.model.Weapon;
+import ee.aivar.service.WeaponRegistration;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -16,29 +16,29 @@ import javax.inject.Named;
 // Read more about the @Model stereotype in this FAQ:
 // http://www.cdi-spec.org/faq/#accordion6
 @Model
-public class WeaponRackController {
+public class WeaponController {
 
     @Inject
     private FacesContext facesContext;
 
     @Inject
-    private WeaponRackRegistration weaponRackRegistration;
+    private WeaponRegistration weaponRegistration;
 
     @Produces
     @Named
-    private WeaponRack newWeaponRack;
+    private Weapon newWeapon;
 
     @PostConstruct
-    public void initNewWeaponRack() {
-        newWeaponRack = new WeaponRack();
+    public void initNewWeapon() {
+        newWeapon = new Weapon();
     }
 
     public void register() throws Exception {
         try {
-            weaponRackRegistration.register(newWeaponRack);
+            weaponRegistration.register(newWeapon);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
             facesContext.addMessage(null, m);
-            initNewWeaponRack();
+            initNewWeapon();
         } catch (Exception e) {
             String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "Registration unsuccessful");

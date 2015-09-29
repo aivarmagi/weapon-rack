@@ -1,8 +1,8 @@
 package ee.aivar.rest;
 
-import ee.aivar.data.WeaponRackRepository;
-import ee.aivar.model.WeaponRack;
-import ee.aivar.service.WeaponRackRegistration;
+import ee.aivar.data.WeaponRepository;
+import ee.aivar.model.Weapon;
+import ee.aivar.service.WeaponRegistration;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,9 +17,9 @@ import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.logging.Logger;
 
-@Path("/weaponracks")
+@Path("/weapons")
 @RequestScoped
-public class WeaponRackResourceRESTService {
+public class WeaponResourceRESTService {
 
     @Inject
     private Logger log;
@@ -28,26 +28,26 @@ public class WeaponRackResourceRESTService {
     private Validator validator;
 
     @Inject
-    private WeaponRackRepository repository;
+    private WeaponRepository repository;
 
     @Inject
-	WeaponRackRegistration registration;
+	WeaponRegistration registration;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<WeaponRack> listAllWeaponRacks() {
+    public List<Weapon> listAllWeapons() {
         return repository.findAllOrderedByName();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public WeaponRack lookupWeaponRackById(@PathParam("id") String id) {
-        WeaponRack weaponRack = repository.findById(id);
-        if (weaponRack == null) {
+    public Weapon lookupWeaponById(@PathParam("id") String id) {
+        Weapon weapon = repository.findById(id);
+        if (weapon == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return weaponRack;
+        return weapon;
     }
 
     /**
@@ -57,14 +57,14 @@ public class WeaponRackResourceRESTService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createWeaponRack(WeaponRack weaponRack) {
+    public Response createWeapon(Weapon weapon) {
 
         Response.ResponseBuilder builder = null;
 
         try {
-            validateWeaponRack(weaponRack);
+            validateWeapon(weapon);
 
-            registration.register(weaponRack);
+            registration.register(weapon);
 
             builder = Response.ok();
         } catch (ConstraintViolationException ce) {
@@ -82,15 +82,15 @@ public class WeaponRackResourceRESTService {
         return builder.build();
     }
 
-    private void validateWeaponRack(WeaponRack weaponRack) throws ConstraintViolationException, ValidationException {
-        Set<ConstraintViolation<WeaponRack>> violations = validator.validate(weaponRack);
+    private void validateWeapon(Weapon weapon) throws ConstraintViolationException, ValidationException {
+        Set<ConstraintViolation<Weapon>> violations = validator.validate(weapon);
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
         }
 
-        if (idAlreadyExists(weaponRack.getId())) {
-            throw new ValidationException("Unique WeaponRack ID Violation");
+        if (idAlreadyExists(weapon.getId())) {
+            throw new ValidationException("Unique Weapon ID Violation");
         }
     }
 
@@ -107,12 +107,12 @@ public class WeaponRackResourceRESTService {
     }
 
     public boolean idAlreadyExists(String id) {
-        WeaponRack weaponRack = null;
+        Weapon weapon = null;
         try {
-            weaponRack = repository.findById(id);
+            weapon = repository.findById(id);
         } catch (NoResultException e) {
             // ignore
         }
-        return weaponRack != null;
+        return weapon != null;
     }
 }

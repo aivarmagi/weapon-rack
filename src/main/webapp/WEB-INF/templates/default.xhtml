@@ -16,6 +16,21 @@
          </ui:insert>
         </div>
         <div id="footer">
+            <h:form style="border: none;">
+                <p>
+                    <h:panelGrid columns="3">
+                        <h:commandButton id="create"
+                                         action="create"
+                                         value="Create" styleClass="button" />
+                        <h:commandButton id="list"
+                                         action="list"
+                                         value="List" styleClass="button" />
+                        <h:commandButton id="update"
+                                         action="update"
+                                         value="Update" styleClass="button" />
+                    </h:panelGrid>
+                </p>
+            </h:form>
        </div>
     </div>
 </h:body>
